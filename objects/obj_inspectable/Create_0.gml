@@ -1,0 +1,1 @@
+update_data = function (_visible) {}
