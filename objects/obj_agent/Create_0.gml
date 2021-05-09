@@ -34,25 +34,6 @@ _move_to_target = false;
 _t_node = noone
 
 
-show_data = false;
-
-inspector_struct = {}
-
-update_data = function (_visible) {
-	show_data = _visible;
-	if (_visible) {
-		var _s = self;
-		inspector_struct = {
-			x : _s.x,
-			y : _s.y,
-			genre : _s.genre,
-			target : _s.target.id
-		}
-	}
-}
-
-
-
 off_scl_x = 0.5 - random(1)
 off_scl_y = 0.5 - random(1)
 
@@ -61,3 +42,6 @@ off_y = 24 - irandom(48)
 
 x += off_x
 y += off_y
+
+
+event_inherited()

@@ -1,1 +1,3 @@
-update_data = function (_visible) {}
+show_data = false;
+inspector_struct = {}
+event_user(0)

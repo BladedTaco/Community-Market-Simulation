@@ -1,7 +1,7 @@
 ///@func Graph(nodes)
-///@param {Object[]} nodes - an array of objects that have x and y implemented
+///@param {object[]} nodes - an array of objects that have x and y implemented
 ///@desc Constructs an edgeless graph with the given objects as nodes.
-function Graph(_nodes) constructor {
+function Graph(_nodes/*:array<object>*/) constructor {
 	// turn objects into Node instances.
 	nodes = []
 	for (var i = 0; i < array_length(_nodes); i++) {
@@ -114,9 +114,9 @@ function Graph(_nodes) constructor {
 }
 
 ///@func Node(object)
-///@param {Object} object - the object to turn into a Node, must have x and y
+///@param {object} object - the object to turn into a Node, must have x and y
 ///@desc creates a Node from object.
-function Node(_obj) constructor {
+function Node(_obj/*:object*/) constructor {
 	x = _obj.x
 	y = _obj.y
 	edges = []
@@ -144,7 +144,7 @@ function Node(_obj) constructor {
 	}
 }
 
-function Edge(_start, _end, _weight) constructor {
+function Edge(_start/*:Node*/, _end/*:Node*/, _weight/*:number*/) constructor {
 	source = _start;
 	dest = _end;
 	weight = _weight
@@ -160,6 +160,6 @@ function Edge(_start, _end, _weight) constructor {
 	}
 	
 	static toString = function () {
-		return "{ (" + string(source.x) + ", " + string(source.y) + ") -> " + "(" + string(dest.x) + ", " + string(dest.y) + ") }"	
+		return "(" + string(source.x) + ", " + string(source.y) + ") -> " + "(" + string(dest.x) + ", " + string(dest.y) + ")"	
 	}
 }

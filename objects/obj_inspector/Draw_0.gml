@@ -3,39 +3,42 @@ if (target != noone && instance_exists(target)) {
 	target.update_data(false)
 }
 
-target = collision_point(mouse_x, mouse_y, obj_inspectable, false, true)
+
+// set target as the topmost object, closest to the mouse.
+var _ds = ds_list_create()
+target = noone;
+if (collision_point_list(mouse_x, mouse_y, obj_inspectable, false, true, _ds, true) > 0) {
+	target = _ds[| 0]
+	for (var i = 1; i < ds_list_size(_ds); i++) {
+		if (_ds[| i].depth < target.depth) {
+			target = _ds[| i]
+		}
+	}
+}
+ds_list_destroy(_ds)
+
 
 if (target != noone) {
 	target.update_data(true)
 	
 	data[0] = string(target.x)
 	data[1] = string(target.y)
-	data[2] = target.inspector_struct
-	
-	data[2] = string_replace_all(data[2], ",", "\n")
-	//data[2] = string_replace_all(data[2], "{", "`")
-	//data[2] = string_replace_all(data[2], "}", "`")
 	
 	data[2] = ""
 	var _names = variable_struct_get_names(target.inspector_struct)
+	var _s;
 	for (var i = 0; i < array_length(_names); i++) {
-		data[2] += _names[i] + " : " + string(variable_struct_get(target.inspector_struct, _names[i])) + "\n"
+		_s = variable_struct_get(target.inspector_struct, _names[i])
+		if (typeof(_s) == "array") {
+			data[2] += _names[i] + " : [\n"
+			for (var o = 0; o < array_length(_s); o++) {
+				data[2] += string(o) + ": " + string(_s[o]) + "\n"
+			}
+			data[2] += "]\n"
+		} else {
+			data[2] += _names[i] + " : " + string(_s) + "\n"
+		}
 	}
-	data[2] = string_replace_all(data[2], "},", "\n")
-	
-	//// remove functions
-	//var i = 0;
-	//while (string_last_pos("gml_Script", data[2]) != 0 and i < 10) {
-	//	i++;
-	//	var _pos = string_last_pos("gml_Script", data[2]);
-	//	data[2] = string_delete(
-	//		data[2],
-	//		string_last_pos_ext("`", data[2], _pos),
-	//		string_pos_ext("`", data[2], _pos) - string_last_pos_ext("`", data[2], _pos)
-	//	)
-	//}
-	
-	//data[2] = string_replace_all(data[2], "`", "\n")
 }
 
 draw_set_colour(c_black)

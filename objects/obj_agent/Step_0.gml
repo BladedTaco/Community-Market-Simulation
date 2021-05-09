@@ -2,10 +2,8 @@ x -= off_x
 y -= off_y
 
 
-update_data(show_data)
 if (!keyboard_check(vk_shift)) {
 	if (target_node == noone) {
-		var _node = noone
 		var _node_dist = infinity
 		var _dist;
 		var _stop = false;
@@ -47,6 +45,7 @@ if (!keyboard_check(vk_shift)) {
 	}
 
 	if (_move_to_target and _t_node == noone) {
+		image_blend = c_green
 		var _weight = follow_edge.weight
 		_t_node = new Node(target)
 		var _go_node = new Node(self)
@@ -80,11 +79,20 @@ if (!keyboard_check(vk_shift)) {
 		
 		
 		if (target_node == entry.node) {
+			entry.return_count++;
 			instance_destroy();	
 		}
 	
 		if (_t_node == node) {
+			var _n = _t_node.edges[0].source
+			_n.edges = []
+			_t_node.edges = []
+			delete _n.edges
+			delete _t_node.edges
+			delete _t_node
+			delete _n
 			_t_node = noone
+			image_blend = c_white
 		} else if (_t_node == target_node) {
 			_move_to_target = false
 			// ADD PROFIT
@@ -101,11 +109,6 @@ if (!keyboard_check(vk_shift)) {
 		node = target_node
 		target_node = noone
 
-	}
-	
-	
-	if (!point_in_rectangle(x, y, 0, 0, room_width, room_height)) {
-		show_debug_message("ESCAPEE")
 	}
 }
 
