@@ -102,6 +102,10 @@ function Graph(_nodes/*:array<object>*/) constructor {
 				i = (i + 0.02) % array_length(nodes)
 			}
 		
+			if (floor(i) >= array_length(nodes)) {
+				 i = 0;	
+			}
+		
 			nodes[floor(i)].draw_edges();
 		
 			draw_circle(nodes[floor(i)].x, nodes[floor(i)].y, 5, true)
@@ -150,9 +154,13 @@ function Edge(_start/*:Node*/, _end/*:Node*/, _weight/*:number*/) constructor {
 	weight = _weight
 	direction = point_direction(source.x, source.y, dest.x, dest.y)
 	
+	static update = function () {
+		direction = point_direction(source.x, source.y, dest.x, dest.y)
+	}
+	
 	static draw_edge = function() {
 		draw_set_alpha(0.3)
-		draw_set_colour(merge_colour(c_white, c_red, weight/128))
+		draw_set_colour(merge_colour(c_red, c_white, weight/144))
 		draw_line(source.x, source.y, dest.x, dest.y)
 		draw_set_alpha(1)
 		

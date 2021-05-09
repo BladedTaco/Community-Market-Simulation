@@ -6,7 +6,8 @@ update_data = function (_visible) {
 			x : _s.x,
 			y : _s.y,
 			genre : _s.genre,
-			target : _s.target.id
+			target : _s.target.id,
+			max_speed : _s.max_speed
 		}
 	}
 }

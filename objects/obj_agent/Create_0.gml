@@ -30,9 +30,6 @@ if (array_length(genre_booths) > 0) {
 }
 
 
-_move_to_target = false;
-_t_node = noone
-
 
 off_scl_x = 0.5 - random(1)
 off_scl_y = 0.5 - random(1)
@@ -42,6 +39,17 @@ off_y = 24 - irandom(48)
 
 x += off_x
 y += off_y
+
+
+// nodes
+_move_to_target = false;
+_off_graph = false;
+_t_node = new Node(self)
+_s_node = new Node(self)
+_g_node = new Node(self)
+
+_g_node.add_edge(_t_node, 1) // go to target
+_t_node.add_edge(_s_node, 1) // return from target
 
 
 event_inherited()

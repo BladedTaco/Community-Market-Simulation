@@ -5,6 +5,6 @@ if (!keyboard_check(vk_shift) and !keyboard_check(vk_control)) {
 			node = other.node
 			entry = other
 		}
-		countdown = AGENT_SPAWN_COUNTDOWN_MIN + irandom(AGENT_SPAWN_COUNTDOWN_RAND)
+		countdown = AGENT_SPAWN_COUNTDOWN
 	}
 }
