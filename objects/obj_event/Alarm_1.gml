@@ -23,4 +23,9 @@ if (events_left-- <= 0) {
 	}
 }
 
-event_user(0)
+if (array_length(events) > 0) {
+	event_user(0)
+} else {
+	show_debug_message("DONE")
+	game_end();
+}
