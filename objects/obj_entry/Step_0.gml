@@ -6,6 +6,7 @@ if (!keyboard_check(vk_shift) and obj_event.spawn_agents) {
 		with (instance_create_depth(x, y, depth - 1, obj_agent)) {
 			node = other.node
 			entry = other
+			visible = other.visible
 		}
 		countdown = AGENT_SPAWN_COUNTDOWN
 	}

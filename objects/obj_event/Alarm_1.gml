@@ -13,7 +13,7 @@ show_debug_message("   GENRE - " + string(events[0][0]))
 show_debug_message("   SCALE - " + string(events[0][1]))
 show_debug_message("   PROFITS - " + string(sales))
 show_debug_message("   WINDOW_SALES - " + string(window_shopping_sales))
-show_debug_message("   AVG CONGESTION - " + string(edge_weight_sum/edge_weight_count))
+show_debug_message("   AVG CONGESTION - " + string_format(edge_weight_sum/edge_weight_count, 1, 10))
 
 
 // cycle through events

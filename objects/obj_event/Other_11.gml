@@ -13,7 +13,7 @@ allocate_booths = function (_genre, _scale) {
 	with (obj_booth) {
 		other.genres[genre]++
 		other.booths[array_length(other.booths)] = self
-		genre = -1
+		//genre = -1
 	}
 	
 	array_sort(booths, function(_a, _b) {
@@ -23,25 +23,25 @@ allocate_booths = function (_genre, _scale) {
 	})
 	
 	switch (_genre) {
-		case GENRE_CLUMPED:
+		case EVENT_SETUP.GENRE_CLUMPED:
 			
 		break;
-		case GENRE_SPREAD:
+		case EVENT_SETUP.GENRE_SPREAD:
 		
 		break;
-		case GENRE_RANDOM:
+		case EVENT_SETUP.GENRE_RANDOM:
 		
 		break;
 		default: throw("INCORRECT USE OF allocate_booths, genre INPUT IS INCORRECT.");
 	}
 	switch (_scale) {
-		case GENRE_SCALE_SMOOTH:
+		case EVENT_SETUP.GENRE_SCALE_SMOOTH:
 		
 		break;
-		case GENRE_SCALE_ROUGH:
+		case EVENT_SETUP.GENRE_SCALE_ROUGH:
 		
 		break;
-		case GENRE_SCALE_RANDOM:
+		case EVENT_SETUP.GENRE_SCALE_RANDOM:
 		
 		break;
 		default: throw("INCORRECT USE OF allocate_booths, scale INPUT IS INCORRECT.");

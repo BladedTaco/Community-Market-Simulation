@@ -38,6 +38,8 @@ events = [
 	[EVENT_SETUP.GENRE_RANDOM, EVENT_SETUP.GENRE_SCALE_RANDOM]
 ]
 
+all_visible = true
+
 // set function for booth placement.
 event_user(1)
 
