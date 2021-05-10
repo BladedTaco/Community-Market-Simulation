@@ -24,3 +24,5 @@ with (obj_entry) {
 with (obj_booth) {
 	closest_nodes = other.graph.overlapping_edges(doorway)
 }
+
+depth = -10000

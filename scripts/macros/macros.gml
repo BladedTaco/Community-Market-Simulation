@@ -1,11 +1,22 @@
+// genre
 #macro GENRE_NUM 10
 #macro PREF_GENRE_CHANCE 50
 #macro NEIGH_GENRE_CHANCE 5
 
+// agent speed
 #macro AGENT_SPEED_MIN 3
 #macro AGENT_SPEED_RAND 5
 #macro AGENT_SPEED AGENT_SPEED_MIN + random(AGENT_SPEED_RAND)
 
+// spawning
 #macro AGENT_SPAWN_COUNTDOWN_MIN 3
 #macro AGENT_SPAWN_COUNTDOWN_RAND 10
 #macro AGENT_SPAWN_COUNTDOWN AGENT_SPAWN_COUNTDOWN_MIN + irandom(AGENT_SPAWN_COUNTDOWN_RAND)
+
+// fill calculations for speed limiting
+#macro AGENT_SIZE 225
+#macro AGENT_CROWDED_FILL_MAX 5
+#macro AGENT_CROWDED_FILL 0.1
+#macro AGENT_CROWDED_SPEED_MIN 0.2
+// gives crowded paths a chance to recover
+#macro AGENT_CROWDED_AVOID 0.5

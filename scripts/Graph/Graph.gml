@@ -27,6 +27,8 @@ function Graph(_nodes/*:array<object>*/) constructor {
 					if (collision_line(home.x, home.y, dest.x, dest.y, _obstacle, false, true) == noone) {
 						var _inst = instance_nearest(lerp(home.x, dest.x, 0.5), lerp(home.y, dest.y, 0.5), _obstacle);
 						_inst = _inst == noone ? -infinity : max(abs(lerp(home.x, dest.x, 0.5) - _inst.x) , abs(lerp(home.y, dest.y, 0.5) - _inst.y))
+						_inst *= point_distance(home.x, home.y, dest.x, dest.y)
+						// weight is the area of the rectangle between the two nodes that doesnt collide with _obstacle
 						home.add_edge(dest, _inst);
 					}
 				}
@@ -97,7 +99,7 @@ function Graph(_nodes/*:array<object>*/) constructor {
 	static draw_edges = function() {
 		static i = 0;
 		
-		if (keyboard_check(vk_control)) {
+		if (keyboard_check(vk_rcontrol)) {
 			if (!keyboard_check(vk_shift)) {
 				i = (i + 0.02) % array_length(nodes)
 			}
@@ -152,19 +154,33 @@ function Edge(_start/*:Node*/, _end/*:Node*/, _weight/*:number*/) constructor {
 	source = _start;
 	dest = _end;
 	weight = _weight
+	following = 0
 	direction = point_direction(source.x, source.y, dest.x, dest.y)
+	length = point_distance(source.x, source.y, dest.x, dest.y)
+	speed_mul = 1
 	
 	static update = function () {
 		direction = point_direction(source.x, source.y, dest.x, dest.y)
+		length = point_distance(source.x, source.y, dest.x, dest.y)
+	}
+	
+	static tick = function (_entering) {
+		following += _entering ? 1 : -1
+		speed_mul = ((following*AGENT_SIZE) / weight)
+		speed_mul = clamp((speed_mul/AGENT_CROWDED_FILL) - 1, 0, AGENT_CROWDED_FILL_MAX)/AGENT_CROWDED_FILL_MAX
+		speed_mul = lerp(1, AGENT_CROWDED_SPEED_MIN, speed_mul)	
 	}
 	
 	static draw_edge = function() {
+		
 		draw_set_alpha(0.3)
-		draw_set_colour(merge_colour(c_red, c_white, weight/144))
+		draw_set_colour(merge_colour(c_red, c_white, speed_mul))
 		draw_line(source.x, source.y, dest.x, dest.y)
 		draw_set_alpha(1)
 		
 		draw_text((source.x + dest.x)/2, (source.y + dest.y)/2, string(weight))
+		draw_text((source.x + dest.x)/2 + 20 - 40*(direction<180), (source.y + dest.y)/2 - 16, string(following))
+		draw_text((source.x + dest.x)/2 + 20 - 40*(direction<180), (source.y + dest.y)/2 - 32, string(speed_mul))
 	}
 	
 	static toString = function () {

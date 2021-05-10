@@ -4,6 +4,9 @@ y -= off_y
 
 if (!keyboard_check(vk_shift)) {
 	if (target_node == noone) {
+		if (follow_edge != noone) {
+			follow_edge.tick(false)
+		}
 		var _node_dist = infinity
 		var _dist;
 		var _stop = false;
@@ -26,11 +29,15 @@ if (!keyboard_check(vk_shift)) {
 			}
 		
 			_dist = point_distance(target.x, target.y, node.edges[i].dest.x, node.edges[i].dest.y)
-			if (_dist < _node_dist) {
+			if (_dist < _node_dist or (follow_edge.speed_mul < AGENT_CROWDED_AVOID)) {
 				_node_dist = _dist
 				target_node = node.edges[i].dest
 				follow_edge = node.edges[i]
 			}
+		}
+		
+		if (follow_edge != noone) {
+			follow_edge.tick(true)
 		}
 	}
 
@@ -58,9 +65,11 @@ if (!keyboard_check(vk_shift)) {
 		_s_node.y = y
 	
 		// set weight
-		_g_node.edges[0].weight = _weight
+		_g_node.edges[0].weight = AGENT_SIZE/AGENT_CROWDED_FILL
+		//_g_node.edges[0].weight = _weight
 		_g_node.edges[0].update()
-		_t_node.edges[0].weight = _weight
+		//_t_node.edges[0].weight = _weight
+		_t_node.edges[0].weight = AGENT_SIZE/AGENT_CROWDED_FILL
 		_t_node.edges[0].update()
 		
 		// set edges to get back on graph
@@ -69,17 +78,17 @@ if (!keyboard_check(vk_shift)) {
 			follow_edge.dest.get_edge(follow_edge.source)
 		]
 	
+		follow_edge.tick(false);
 	
 		node = _g_node
 		target_node = _t_node
 		follow_edge = _g_node.edges[0]
 	}
 
-	off_x = lerp((follow_edge.weight - 8)*off_scl_x, off_x, 0.9)
-	off_y = lerp((follow_edge.weight - 8)*off_scl_y, off_y, 0.9)
+	off_x = lerp((follow_edge.weight/follow_edge.length - 8)*off_scl_x, off_x, 0.9)
+	off_y = lerp((follow_edge.weight/follow_edge.length - 8)*off_scl_y, off_y, 0.9)
 
-	var _w = follow_edge.weight / 144
-	_w = sqrt(_w)
+	var _w = follow_edge.speed_mul
 	if (point_distance(x, y, target_node.x, target_node.y) > _w*max_speed*2) {
 		x += lengthdir_x(max_speed*_w, follow_edge.direction)	
 		y += lengthdir_y(max_speed*_w, follow_edge.direction)	
@@ -91,18 +100,11 @@ if (!keyboard_check(vk_shift)) {
 		
 		if (target_node == entry.node) {
 			entry.return_count++;
+			follow_edge.tick(false)
 			instance_destroy();	
 		}
 	
 		if (_t_node == node) {
-			//var _n = _t_node.edges[0].source
-			//_n.edges = []
-			//_t_node.edges = []
-			//delete _n.edges
-			//delete _t_node.edges
-			//delete _t_node
-			//delete _n
-			//_t_node = noone
 			_off_graph = false
 			image_blend = c_white
 		} else if (_t_node == target_node) {
