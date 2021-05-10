@@ -1,16 +1,32 @@
+// booths that will only be walked to.
 genre = irandom(GENRE_NUM)
+// booths that will be window-shopped, but not walked to.
+subgenre = irandom(GENRE_NUM)
 
 genre_booths = []
+subgenre_booths = []
+window_shops = 0
 
 while (array_length(genre_booths) == 0) {
 	with (obj_booth) {
+		//genre booths
 		if (genre == other.genre) {
-			if (random(100) < PREF_GENRE_CHANCE) {
+			if (RAND < PREF_GENRE_CHANCE) {
 				other.genre_booths[array_length(other.genre_booths)] = self
 			}
 		} else if (abs(genre - other.genre) < 2) {
-			if (random(100) < NEIGH_GENRE_CHANCE) {
+			if (RAND < NEIGH_GENRE_CHANCE) {
 				other.genre_booths[array_length(other.genre_booths)] = self
+			}
+		}
+		//subgenre booths
+		if (genre == other.subgenre) {
+			if (RAND < PREF_SUBGENRE_CHANCE) {
+				other.subgenre_booths[array_length(other.subgenre_booths)] = self
+			}
+		} else if (abs(genre - other.subgenre) < 2) {
+			if (RAND < NEIGH_SUBGENRE_CHANCE) {
+				other.subgenre_booths[array_length(other.subgenre_booths)] = self
 			}
 		}
 	}

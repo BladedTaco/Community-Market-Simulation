@@ -7,7 +7,8 @@ update_data = function (_visible) {
 			y : _s.y,
 			genre : _s.genre,
 			target : _s.target.id,
-			max_speed : _s.max_speed
+			max_speed : _s.max_speed,
+			window_shops : _s.window_shops
 		}
 	}
 }

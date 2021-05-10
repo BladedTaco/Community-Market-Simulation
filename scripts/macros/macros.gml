@@ -1,7 +1,12 @@
+#macro RAND random(100)
 // genre
 #macro GENRE_NUM 10
 #macro PREF_GENRE_CHANCE 50
 #macro NEIGH_GENRE_CHANCE 5
+// sub genre
+#macro SUBGENRE_CHANCE 50
+#macro PREF_SUBGENRE_CHANCE 25
+#macro NEIGH_SUBGENRE_CHANCE 2
 
 // agent speed
 #macro AGENT_SPEED_MIN 3

@@ -26,3 +26,5 @@ with (obj_booth) {
 }
 
 depth = -10000
+
+spawn_agents = true;

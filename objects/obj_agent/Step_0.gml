@@ -17,6 +17,26 @@ if (!keyboard_check(vk_shift)) {
 						follow_edge = node.edges[i]
 						target_node = follow_edge.dest
 						_stop = true;
+						break
+					}
+				}
+				if (RAND < SUBGENRE_CHANCE) {
+					for (var j = 0; j < array_length(subgenre_booths); j++) {
+						for (var o = 0; o < array_length(subgenre_booths[j].closest_nodes); o++) {
+							if (node.edges[i] == subgenre_booths[j].closest_nodes[o]) {
+								follow_edge = node.edges[i]
+								target_node = follow_edge.dest
+								_stop = true;
+								
+								// remove from subgenre booths
+								target = subgenre_booths[j]
+								array_insert(genre_booths, 0, target)
+								array_delete(subgenre_booths, j, 1)
+								window_shops++
+								break
+							}
+						}
+						if (_stop) break
 					}
 				}
 			} catch (_e) {
@@ -29,7 +49,7 @@ if (!keyboard_check(vk_shift)) {
 			}
 		
 			_dist = point_distance(target.x, target.y, node.edges[i].dest.x, node.edges[i].dest.y)
-			if (_dist < _node_dist or (follow_edge.speed_mul < AGENT_CROWDED_AVOID)) {
+			if (_dist < _node_dist or ((follow_edge.speed_mul < AGENT_CROWDED_AVOID) and (follow_edge.speed_mul < node.edges[i].speed_mul))) {
 				_node_dist = _dist
 				target_node = node.edges[i].dest
 				follow_edge = node.edges[i]
