@@ -9,7 +9,8 @@ update_data = function (_visible) {
 			y : _s.y,
 			genre : _s.genre,
 			trigger : _s.trigger,
-			closest_nodes : _s.closest_nodes
+			closest_nodes : _s.closest_nodes,
+			sales : _s.sales
 		}
 	}
 }

@@ -119,9 +119,8 @@ if (!keyboard_check(vk_shift)) {
 		
 		
 		if (target_node == entry.node) {
-			entry.return_count++;
-			follow_edge.tick(false)
 			instance_destroy();	
+			exit;
 		}
 	
 		if (_t_node == node) {
@@ -131,6 +130,7 @@ if (!keyboard_check(vk_shift)) {
 			_move_to_target = false
 			// ADD PROFIT
 			//show_debug_message("PURCHASE")
+			target.sales++
 		
 			array_delete(genre_booths, 0, 1)
 			if (array_length(genre_booths) > 0) {

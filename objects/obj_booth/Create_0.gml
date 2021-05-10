@@ -9,7 +9,6 @@ doorway.image_yscale = 3;
 
 closest_nodes = []
 
-genre = irandom(GENRE_NUM)
-
+event_user(1)
 
 event_inherited();

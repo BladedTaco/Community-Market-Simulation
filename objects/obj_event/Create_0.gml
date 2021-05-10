@@ -20,11 +20,26 @@ with (obj_entry) {
 	closest_nodes = other.graph.overlapping_edges(self)
 }
 
-
 with (obj_booth) {
 	closest_nodes = other.graph.overlapping_edges(doorway)
 }
 
 depth = -10000
+events_left = EVENT_COUNT
+events = [
+	[EVENT_SETUP.GENRE_CLUMPED, EVENT_SETUP.GENRE_SCALE_SMOOTH],
+	[EVENT_SETUP.GENRE_CLUMPED, EVENT_SETUP.GENRE_SCALE_ROUGH],
+	[EVENT_SETUP.GENRE_CLUMPED, EVENT_SETUP.GENRE_SCALE_RANDOM],
+	[EVENT_SETUP.GENRE_SPREAD, EVENT_SETUP.GENRE_SCALE_SMOOTH],
+	[EVENT_SETUP.GENRE_SPREAD, EVENT_SETUP.GENRE_SCALE_ROUGH],
+	[EVENT_SETUP.GENRE_SPREAD, EVENT_SETUP.GENRE_SCALE_RANDOM],
+	[EVENT_SETUP.GENRE_RANDOM, EVENT_SETUP.GENRE_SCALE_SMOOTH],
+	[EVENT_SETUP.GENRE_RANDOM, EVENT_SETUP.GENRE_SCALE_ROUGH],
+	[EVENT_SETUP.GENRE_RANDOM, EVENT_SETUP.GENRE_SCALE_RANDOM]
+]
 
-spawn_agents = true;
+// set function for booth placement.
+event_user(1)
+
+// start the first event
+event_user(0)

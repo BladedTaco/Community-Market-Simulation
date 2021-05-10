@@ -169,6 +169,8 @@ function Edge(_start/*:Node*/, _end/*:Node*/, _weight/*:number*/) constructor {
 		speed_mul = ((following*AGENT_SIZE) / weight)
 		speed_mul = clamp((speed_mul/AGENT_CROWDED_FILL) - 1, 0, AGENT_CROWDED_FILL_MAX)/AGENT_CROWDED_FILL_MAX
 		speed_mul = lerp(1, AGENT_CROWDED_SPEED_MIN, speed_mul)	
+		obj_event.edge_weight_sum += speed_mul
+		obj_event.edge_weight_count++
 	}
 	
 	static draw_edge = function() {
