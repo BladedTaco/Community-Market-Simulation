@@ -18,3 +18,7 @@ if (keyboard_check_pressed(vk_space)) {
 		}
 	}
 }
+
+if (keyboard_check_pressed(vk_alt)) {
+	alarm[0] = 1	
+}
